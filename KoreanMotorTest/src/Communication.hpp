@@ -25,10 +25,11 @@ void SerialReceive() {
                 }
                 Command[ 0 ] = jb[ "state" ];
                 if ( jb[ "state" ] == 0 ) {
-					digitalWrite(SLP, HIGH); // Wake up
-				}
-                for ( int i = 0; i < 10; i++ ) {
-                    motors[ i ].setTargetStep( jb[ "target" ][ i ] );
+                    digitalWrite( SLP, HIGH );  // Wake up
+                }
+                for ( int i = 0; i < 5; i++ ) {
+                    cameras[ i ].setYaw( jb[ "target" ][ 2 * i ] );
+                    cameras[ i ].setPitch( jb[ "target" ][ 2 * i + 1 ] );
                 }
                 Serial.println( buff );
                 buff = "";
