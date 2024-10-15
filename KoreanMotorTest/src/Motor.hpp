@@ -102,9 +102,11 @@ public:
         if ( !motor1.readSwitch() ) {
             motor1.move( -1 );
             motor2.move( -1 );
+            return false;
         }
         else if ( !motor2.readSwitch() ) {
             motor2.move( -1 );
+            return false;
         }
         else {
             currentPitch = 0;
