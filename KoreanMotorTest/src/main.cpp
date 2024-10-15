@@ -15,6 +15,9 @@ bool StepperController( void* ) {
         }
         if ( homing ) {
             motorState = 0;
+            for( int i = 0; i < 5; i++ ) {
+                cameras[ i ].setHoming( false );
+            }
             digitalWrite( SLP, LOW );  // Sleep mode
         }
     }
@@ -51,5 +54,5 @@ void init() {
     pinMode( SLP, OUTPUT );
     digitalWrite( SLP, HIGH );  // Wake up mode
     // call the StepperController function
-    t_timer.every( 2000, StepperController );
+    t_timer.every( 8000, StepperController );
 }

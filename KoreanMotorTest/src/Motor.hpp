@@ -51,6 +51,8 @@ private:
     int targetPitch  = 0;
     int targetYaw    = 0;
 
+    bool isHoming = false;
+
 public:
     Camera( DRV8428 motor1, DRV8428 motor2 ) : motor1( motor1 ), motor2( motor2 ) {}
 
@@ -99,6 +101,9 @@ public:
     }
 
     bool moveHome() {
+        if( isHoming ) {
+            return true;
+        }
         if ( !motor1.readSwitch() ) {
             motor1.move( -1 );
             motor2.move( -1 );
@@ -111,8 +116,13 @@ public:
         else {
             currentPitch = 0;
             currentYaw   = 0;
+            isHoming     = true;
             return true;
         }
+    }
+
+    void setHoming( bool homing ) {
+        isHoming = homing;
     }
 };
 
