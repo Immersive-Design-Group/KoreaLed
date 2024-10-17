@@ -2,5 +2,7 @@
     "files.associations": {
         "*.ino": "cpp",
         "*.tcc": "cpp"
-    }
+    },
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true
 }
