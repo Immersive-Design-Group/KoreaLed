@@ -3,9 +3,10 @@
 #include "Motor.hpp"
 #include <ArduinoJson.h>
 
-static int Command[ 2 ];
+static int Command[ 3 ];
 String     buff = "";
-// {"state":0,"target":[100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]}
+// {"device":0,"state":0,"target":[100, 200, 300, 400, 500]}
+// {"device":1,"state":0,"target":[100, 200, 300, 400, 500]}
 
 // JSON object
 JsonDocument jb;
@@ -23,13 +24,20 @@ void SerialReceive() {
                     // Serial.print( F( "deserializeJson() failed: " ) );
                     // Serial.println( err.c_str() );
                 }
-                Command[ 0 ] = jb[ "state" ];
-                if ( jb[ "state" ] == 0 ) {
+                // activate the motors
+                if ( jb[ "state" ] == 0 || jb[ "state" ] == 1 ) {
                     digitalWrite( SLP, HIGH );  // Wake up
                 }
-                for ( int i = 0; i < 5; i++ ) {
-                    cameras[ i ].setYaw( jb[ "target" ][ 2 * i ] );
-                    cameras[ i ].setPitch( jb[ "target" ][ 2 * i + 1 ] );
+                // set the motors target
+                if ( jb[ "device" ] = 0 ) {
+                    for ( int i = 0; i < 5; i++ ) {
+                        cameras[ i ].setYaw( jb[ "target" ][ i ] );
+                    }
+                }
+                else if ( jb[ "device" ] = 1 ) {
+                    for ( int i = 0; i < 5; i++ ) {
+                        cameras[ i ].setPitch( jb[ "target" ][ i ] );
+                    }
                 }
                 Serial.println( buff );
                 buff = "";
