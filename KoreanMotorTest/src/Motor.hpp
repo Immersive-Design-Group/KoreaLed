@@ -1,12 +1,14 @@
 #pragma once
 #include "A4988.h"
 
+// Motor ratio
+const float motorRatio1 = 10.0f / 6.0f;
+const float motorRatio2 = 1.0f;
+
 // Motor state
 int motorState = 1;  // 0: normal, 1: homing
 
 // DIR, STEP, SW
-const int motorPins[ 10 ][ 3 ] = { { 4, 5, 6 }, { 7, 15, 16 }, { 17, 18, 8 }, { 19, 20, 3 }, { 46, 9, 10 }, { 11, 12, 13 }, { 14, 21, 47 }, { 48, 45, 35 }, { 38, 37, 36 }, { 41, 40, 39 } };
-
 const int motorPins1[ 5 ][ 3 ] = { { 17, 18, 8 }, { 38, 37, 36 }, { 4, 5, 6 }, { 48, 45, 35 }, { 46, 9, 10 } };
 const int motorPins2[ 5 ][ 3 ] = { { 19, 20, 3 }, { 41, 40, 39 }, { 7, 15, 16 }, { 14, 21, 47 }, { 11, 12, 13 } };
 
@@ -38,11 +40,11 @@ public:
     }
 };
 
-DRV8428 motors[ 10 ] = { DRV8428( STPS, motorPins[ 0 ][ 0 ], motorPins[ 0 ][ 1 ], motorPins[ 0 ][ 2 ] ), DRV8428( STPS, motorPins[ 1 ][ 0 ], motorPins[ 1 ][ 1 ], motorPins[ 1 ][ 2 ] ),
-                         DRV8428( STPS, motorPins[ 2 ][ 0 ], motorPins[ 2 ][ 1 ], motorPins[ 2 ][ 2 ] ), DRV8428( STPS, motorPins[ 3 ][ 0 ], motorPins[ 3 ][ 1 ], motorPins[ 3 ][ 2 ] ),
-                         DRV8428( STPS, motorPins[ 4 ][ 0 ], motorPins[ 4 ][ 1 ], motorPins[ 4 ][ 2 ] ), DRV8428( STPS, motorPins[ 5 ][ 0 ], motorPins[ 5 ][ 1 ], motorPins[ 5 ][ 2 ] ),
-                         DRV8428( STPS, motorPins[ 6 ][ 0 ], motorPins[ 6 ][ 1 ], motorPins[ 6 ][ 2 ] ), DRV8428( STPS, motorPins[ 7 ][ 0 ], motorPins[ 7 ][ 1 ], motorPins[ 7 ][ 2 ] ),
-                         DRV8428( STPS, motorPins[ 8 ][ 0 ], motorPins[ 8 ][ 1 ], motorPins[ 8 ][ 2 ] ), DRV8428( STPS, motorPins[ 9 ][ 0 ], motorPins[ 9 ][ 1 ], motorPins[ 9 ][ 2 ] ) };
+DRV8428 motors[ 10 ] = { DRV8428( STPS, motorPins1[ 0 ][ 0 ], motorPins1[ 0 ][ 1 ], motorPins1[ 0 ][ 2 ] ), DRV8428( STPS, motorPins2[ 0 ][ 0 ], motorPins2[ 0 ][ 1 ], motorPins2[ 0 ][ 2 ] ),
+                         DRV8428( STPS, motorPins1[ 1 ][ 0 ], motorPins1[ 1 ][ 1 ], motorPins1[ 1 ][ 2 ] ), DRV8428( STPS, motorPins2[ 1 ][ 0 ], motorPins2[ 1 ][ 1 ], motorPins2[ 1 ][ 2 ] ),
+                         DRV8428( STPS, motorPins1[ 2 ][ 0 ], motorPins1[ 2 ][ 1 ], motorPins1[ 2 ][ 2 ] ), DRV8428( STPS, motorPins2[ 2 ][ 0 ], motorPins2[ 2 ][ 1 ], motorPins2[ 2 ][ 2 ] ),
+                         DRV8428( STPS, motorPins1[ 3 ][ 0 ], motorPins1[ 3 ][ 1 ], motorPins1[ 3 ][ 2 ] ), DRV8428( STPS, motorPins2[ 3 ][ 0 ], motorPins2[ 3 ][ 1 ], motorPins2[ 3 ][ 2 ] ),
+                         DRV8428( STPS, motorPins1[ 4 ][ 0 ], motorPins1[ 4 ][ 1 ], motorPins1[ 4 ][ 2 ] ), DRV8428( STPS, motorPins2[ 4 ][ 0 ], motorPins2[ 4 ][ 1 ], motorPins2[ 4 ][ 2 ] ) };
 
 class Camera {
 private:

@@ -27,16 +27,22 @@ void SerialReceive() {
                 // activate the motors
                 if ( jb[ "state" ] == 0 || jb[ "state" ] == 1 ) {
                     digitalWrite( SLP, HIGH );  // Wake up
+                    if ( jb[ "state" ] == 0 ) {
+                        motorState = 0;
+                    }
+                    else {
+                        motorState = 1;
+                    }
                 }
                 // set the motors target
                 if ( jb[ "device" ] = 0 ) {
                     for ( int i = 0; i < 5; i++ ) {
-                        cameras[ i ].setYaw( jb[ "target" ][ i ] );
+                        cameras[ i ].setYaw( static_cast< int >( jb[ "target" ][ i ].as< float >() * motorRatio1 ) );
                     }
                 }
                 else if ( jb[ "device" ] = 1 ) {
                     for ( int i = 0; i < 5; i++ ) {
-                        cameras[ i ].setPitch( jb[ "target" ][ i ] );
+                        cameras[ i ].setPitch( static_cast< int >( jb[ "target" ][ i ].as< float >() * motorRatio2 ) );
                     }
                 }
                 Serial.println( buff );
