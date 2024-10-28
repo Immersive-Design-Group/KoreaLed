@@ -74,7 +74,7 @@ public:
         if ( !motor1.readSwitch() )
             currentPitch = 0;
         if ( !motor2.readSwitch() )
-            currentPitch = 0;
+            currentYaw = 0;
 
         if ( currentPitch != targetPitch ) {
             if ( currentPitch < targetPitch ) {
@@ -92,11 +92,11 @@ public:
 
         if ( currentYaw != targetYaw ) {
             if ( currentYaw < targetYaw ) {
-                motor2.move( 1 );
+                motor2.move( -1 );
                 currentYaw++;
             }
             else {
-                motor2.move( -1 );
+                motor2.move( 1 );
                 currentYaw--;
             }
             return false;
@@ -121,6 +121,8 @@ public:
         else {
             currentPitch = 0;
             currentYaw   = 0;
+            targetPitch  = 0;
+            targetYaw    = 0;
             isHoming     = true;
             return true;
         }
