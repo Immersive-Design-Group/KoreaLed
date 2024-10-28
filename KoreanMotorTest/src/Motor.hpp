@@ -3,7 +3,7 @@
 
 // Motor ratio
 const float motorRatio1 = 10.0f / 6.0f;
-const float motorRatio2 = 1.0f;
+const float motorRatio2 = 10.0f / 6.0f * 19.0f / 2.0f;
 
 // Motor state
 int motorState = 1;  // 0: normal, 1: homing
