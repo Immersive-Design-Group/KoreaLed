@@ -8,27 +8,28 @@
 Timer< 1, micros, void* > t_timer;
 
 bool StepperController( void* ) {
-	motorState = 0;
     if ( motorState == 1 ) {
         bool homing = true;
         for ( int i = 0; i < 5; i++ ) {
             homing &= cameras[ i ].moveHome();
+            // Serial.print( "Camera " );
         }
         if ( homing ) {
-            motorState = 0;
+            motorState = 2;
             for ( int i = 0; i < 5; i++ ) {
                 cameras[ i ].setHoming( false );
             }
             digitalWrite( SLP, LOW );  // Sleep mode
         }
     }
-    else {
+    else if(motorState == 0) {
         bool isReached = true;
         for ( int i = 0; i < 5; i++ ) {
             isReached &= cameras[ i ].move();
-            Serial.print( "Camera " );
+            // Serial.print( "Camera " );
         }
         if ( isReached ) {
+            motorState = 2;
             digitalWrite( SLP, LOW );  // Sleep mode
         }
     }
@@ -56,5 +57,5 @@ void init() {
     pinMode( SLP, OUTPUT );
     digitalWrite( SLP, HIGH );  // Wake up mode
     // call the StepperController function
-    t_timer.every( 80000, StepperController );
+    t_timer.every( 20000, StepperController );
 }
