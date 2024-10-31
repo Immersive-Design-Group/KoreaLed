@@ -12,7 +12,7 @@ bool StepperController( void* ) {
         bool homing = true;
         for ( int i = 0; i < 5; i++ ) {
             homing &= cameras[ i ].moveHome();
-            // Serial.print( "Camera " );
+            Serial.print( "Camera 1 " );
         }
         if ( homing ) {
             motorState = 2;
@@ -20,17 +20,22 @@ bool StepperController( void* ) {
                 cameras[ i ].setHoming( false );
             }
             digitalWrite( SLP, LOW );  // Sleep mode
+            Serial.println("Sleeping:2");
+
         }
     }
     else if(motorState == 0) {
         bool isReached = true;
         for ( int i = 0; i < 5; i++ ) {
             isReached &= cameras[ i ].move();
-            // Serial.print( "Camera " );
+            Serial.print( "Camera 0 " );
         }
         if ( isReached ) {
             motorState = 2;
             digitalWrite( SLP, LOW );  // Sleep mode
+            Serial.println("Sleeping:0");
+
+
         }
     }
     return true;
